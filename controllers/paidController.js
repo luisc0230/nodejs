@@ -12,6 +12,26 @@ const controller = {};
 const username = keys.username;
 const passwordRedirect = keys.passwordRedirect;
 
+// Función para la ruta "/"
+exports.home = (req, res) => {
+  res.send('Bienvenido a la página de inicio');
+};
+
+// Función para la ruta "/ipn" (por ejemplo, para manejar notificaciones IPN de un servicio de pago)
+exports.ipn = (req, res) => {
+  const signature = req.body['signature'];
+
+  // Verifica la firma de la IPN
+  if (signature === getSignature(req.body, passwordRedirect)) {
+    console.log("Notificación IPN recibida:", req.body);
+    res.status(200).send({'response': req.body['vads_result']});
+  } else {
+    console.log('Intento de fraude detectado');
+    res.status(500).send({'response': 'Es probable un intento de fraude'});
+  }
+};
+
+
 controller.home = (req, res) => {
     res.send('Servidor Node.js en funcionamiento sin frontend');
 }
