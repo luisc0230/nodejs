@@ -19,6 +19,7 @@ controller.home = (req, res) => {
 controller.urlFlutter = (req, res) => {
 
     const email = req.body['email'];
+    const name = req.body['name'];
     const phone = req.body['phone'];   
     const amount = req.body['amount'];
     const currency = req.body['currency'];
@@ -32,6 +33,7 @@ controller.urlFlutter = (req, res) => {
         vads_ctx_mode: mode,
         vads_currency: currency,
         vads_cust_email: email,
+        vads_cust_name : name,
         vads_cust_phone: phone,
         vads_page_action: 'PAYMENT',
         vads_payment_config: 'SINGLE',
